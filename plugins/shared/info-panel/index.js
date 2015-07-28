@@ -27,8 +27,10 @@ const COLLAPSED_CLASS_NAME = "tota11y-collapsed";
 const HIDDEN_CLASS_NAME = "tota11y-info-hidden";
 
 class InfoPanel {
-    constructor(title) {
-        this.title = title;
+    constructor(plugin) {
+        this.plugin = plugin;
+
+        this.title = plugin.getTitle();
         this.about = null;
         this.summary = null;
         this.errors = [];
@@ -114,6 +116,9 @@ class InfoPanel {
             e.preventDefault();
             e.stopPropagation();
             this.$el.addClass(HIDDEN_CLASS_NAME);
+
+            // Refocus the plugin's checkbox
+            this.plugin.$checkbox.focus();
         });
 
         // Append the info panel to the body. In reality we'll likely want
@@ -304,6 +309,9 @@ class InfoPanel {
         if (hasContent) {
             this.initAndPosition();
         }
+
+        // Focus the info panel
+        this.$el.focus();
 
         return this.$el;
     }

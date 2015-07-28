@@ -16,7 +16,7 @@ require("./style.less");
 
 class Plugin {
     constructor() {
-        this.panel = new InfoPanel(this.getTitle());
+        this.panel = new InfoPanel(this);
         this.$checkbox = null;
     }
 

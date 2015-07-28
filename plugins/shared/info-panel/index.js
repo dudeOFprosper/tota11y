@@ -17,9 +17,7 @@
 let $ = require("jquery");
 let annotate = require("../annotate")("info-panel");
 
-let template = require("./template.handlebars");
 let errorTemplate = require("./error.handlebars");
-let tabTemplate = require("./tab.handlebars");
 require("./style.less");
 
 const INITIAL_PANEL_MARGIN_PX = 10;
@@ -30,19 +28,11 @@ class InfoPanel {
     constructor(plugin) {
         this.plugin = plugin;
 
-        this.title = plugin.getTitle();
         this.about = null;
         this.summary = null;
         this.errors = [];
 
         this.$el = null;
-    }
-
-    /**
-     * Sets the title of the info panel
-     */
-    setTitle(title) {
-        this.title = title;
     }
 
     /**
@@ -71,7 +61,16 @@ class InfoPanel {
 
     _addTab(title, html) {
         // Create and append a tab marker
-        let $tab = $(tabTemplate({title}));
+        let $tab = (
+            <li className="tota11y-info-tab">
+                <a className="tota11y-info-tab-anchor" href="#">
+                    <span className="tota11y-info-tab-anchor-text">
+                        {title}
+                    </span>
+                </a>
+            </li>
+        );
+
         this.$el.find(".tota11y-info-tabs").append($tab);
 
         // Create and append the tab content
@@ -184,9 +183,30 @@ class InfoPanel {
 
         let hasContent = false;
 
-        this.$el = $(template({
-            title: this.title,
-        }));
+        this.$el = (
+            <div className="tota11y tota11y-info" tabindex="-1">
+                <header className="tota11y-info-title">
+                    {this.plugin.getTitle()}
+                    <span className="tota11y-info-controls">
+                        <label className="tota11y-info-annotation-toggle">
+                            Annotate:
+                            {" "}
+                            <input
+                                className="toggle-annotation"
+                                type="checkbox"
+                                checked="checked" />
+                        </label>
+                        <a href="#" className="tota11y-info-dismiss-trigger">
+                            &times;
+                        </a>
+                    </span>
+                </header>
+                <div className="tota11y-info-body">
+                    <div className="tota11y-info-sections" />
+                    <ul role="tablist" className="tota11y-info-tabs" />
+                </div>
+            </div>
+        );
 
         // Add the appropriate tabs based on which information the info panel
         // was provided, then highlight the most important one.

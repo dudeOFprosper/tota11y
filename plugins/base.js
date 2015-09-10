@@ -59,9 +59,17 @@ class Plugin {
         let $plugin = $(template(templateData));
 
         this.$checkbox = $plugin.find(".tota11y-plugin-checkbox");
+        this.$icon = $plugin.find(".tota11y-plugin-collapse"); 
+        
         this.$checkbox.click((e) => {
             e.stopPropagation();
             clickHandler(this);
+        });
+
+        this.$icon.click((e) => {
+            e.stopPropagation();
+            $plugin.toggleClass("collapsed");
+            this.$icon.toggleClass("isPlus");
         });
 
         return $plugin;

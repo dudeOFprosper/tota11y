@@ -2,6 +2,7 @@
 @import "base.less";
 
 @descriptionWidth: 200px;
+@pluginPaddingSmall: 5px;
 @pluginPadding: 12px;
 @controlMargin: 15px;
 @indicatorSize: 16px;
@@ -58,9 +59,10 @@
 
     &-label {
         align-items: center;
-        display: flex;
+        display: inline-flex;
         padding: @pluginPadding @pluginPadding @pluginPadding 0;
         margin: 0;
+        width: 89% !important;
 
         &:hover {
             cursor: pointer;
@@ -75,6 +77,30 @@
         display: none;
     }
 
+    &-collapse {
+        display: inline-flex;
+
+        i {
+            font-family: FontAwesome !important; 
+            font-style: normal !important; 
+        }
+    }
+
+    &.collapsed {
+        label {
+            padding: @pluginPaddingSmall @pluginPaddingSmall @pluginPaddingSmall 46px;
+        }
+        .tota11y-plugin-description {
+            display: none;
+        }
+        .tota11y-plugin-control {
+            display: none;
+        }
+
+        .icon-minus-sign:before {
+            content: "\f055" !important;
+        }
+    }
     &-indicator {
         border-radius: @indicatorSize;
         border: 1px solid @lightBorderColor;

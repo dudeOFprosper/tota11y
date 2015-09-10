@@ -79,25 +79,27 @@
 
     &-collapse {
         display: inline-flex;
+        cursor: pointer; 
 
         i {
             font-family: FontAwesome !important; 
             font-style: normal !important; 
-        }
+            &:before {
+                content: "\f056" !important;
+            }
+        } 
     }
 
     &.collapsed {
         label {
             padding: @pluginPaddingSmall @pluginPaddingSmall @pluginPaddingSmall 46px;
+            cursor: default; 
         }
-        .tota11y-plugin-description {
-            display: none;
-        }
-        .tota11y-plugin-control {
+        .tota11y-plugin-description, .tota11y-plugin-control {
             display: none;
         }
 
-        .icon-minus-sign:before {
+        i:before {
             content: "\f055" !important;
         }
     }
